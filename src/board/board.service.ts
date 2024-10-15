@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 // 서비스는 실제 비즈니스 로직을 만든다
+// 비즈니스 로직은 데이터를 crud 처리하거나 저장하는 로직을 말한다
 @Injectable()
 export class BoardService {
   // 더미 게시글 목록

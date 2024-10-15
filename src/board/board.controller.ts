@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { BoardService } from './board.service';
 
-// 컨트롤러는 라우팅 주소를 만든다
+// 컨트롤러는 라우팅 주소를 만든다 API 엔드포인트
 @Controller('board')
 export class BoardController {
   // 서비스 연결
