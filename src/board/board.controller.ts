@@ -40,7 +40,8 @@ export class BoardController {
   // 업데이트 대상의 아이디를 받아오고 바디데코레이터를 통해서 가져온다
   @Put(':id')
   update(@Param('id') id: number, @Body() data) {
-    return `board update id: ${id} data: ${data}`;
+    // 업데이트가 되는 아이디와 업데이트가 되는 데이터를 받아온다
+    return this.boardService.update(Number(id), data);
   }
 
   // 게시글 삭제

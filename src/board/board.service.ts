@@ -32,12 +32,19 @@ export class BoardService {
     },
   ];
 
+  getNextId() {
+    return this.boards.sort((a, b) => b.id - a.id)[0].id + 1;
+  }
+  getBoardIndex(id: number) {
+    return this.boards.findIndex((board) => board.id === id);
+  }
+
   findAll() {
     return this.boards;
   }
 
   findOne(id: number) {
-    const index = this.boards.findIndex((board) => board.id === id);
+    const index = this.getBoardIndex(id);
     return this.boards[index];
   }
 
@@ -49,7 +56,14 @@ export class BoardService {
     this.boards.push(newBoard);
     return newBoard;
   }
-  getNextId() {
-    return this.boards.sort((a, b) => b.id - a.id)[0].id + 1;
+
+  update(id: number, data) {
+    const index = this.getBoardIndex(id);
+
+    if (index > -1) {
+      this.boards[index] = { ...this.boards[index], ...data };
+      return this.boards[index];
+    }
+    return null;
   }
 }
