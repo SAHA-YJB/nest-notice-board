@@ -25,8 +25,8 @@ export class BoardController {
 
   // 게시글 상세 조회
   @Get(':id')
-  findOne(@Param('id') id: number) {
-    return `findOne id: ${id}`;
+  findOne(@Param('id') id: string) {
+    return this.boardService.findOne(id);
   }
 
   // 게시글 생성
@@ -39,13 +39,13 @@ export class BoardController {
   // 게시글 수정
   // 업데이트 대상의 아이디를 받아오고 바디데코레이터를 통해서 가져온다
   @Put(':id')
-  update(@Param('id') id: number, @Body() data) {
+  update(@Param('id') id: string, @Body() data) {
     return `board update id: ${id} data: ${data}`;
   }
 
   // 게시글 삭제
   @Delete(':id')
-  remove(@Param('id') id: number) {
+  remove(@Param('id') id: string) {
     return `board delete id: ${id}`;
   }
 }
