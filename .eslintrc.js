@@ -22,5 +22,6 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
+    'no-unused-vars': 'off', // 사용하지 않는 변수 경고 비활성화
   },
 };
