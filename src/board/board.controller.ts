@@ -8,9 +8,11 @@ import {
   Put,
 } from '@nestjs/common';
 import { BoardService } from './board.service';
+import { ApiTags } from '@nestjs/swagger';
 
 // 컨트롤러는 라우팅 주소를 만든다 API 엔드포인트
 @Controller('board')
+@ApiTags('Board')
 export class BoardController {
   // 서비스 연결
   constructor(private readonly boardService: BoardService) {}
