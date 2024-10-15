@@ -66,4 +66,14 @@ export class BoardService {
     }
     return null;
   }
+
+  remove(id: number) {
+    const index = this.getBoardIndex(id);
+    if (index > -1) {
+      const deletedBoard = this.boards[index];
+      this.boards.splice(index, 1);
+      return deletedBoard;
+    }
+    return null;
+  }
 }

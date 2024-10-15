@@ -47,6 +47,6 @@ export class BoardController {
   // 게시글 삭제
   @Delete(':id')
   remove(@Param('id') id: number) {
-    return `board delete id: ${id}`;
+    return this.boardService.remove(Number(id));
   }
 }
