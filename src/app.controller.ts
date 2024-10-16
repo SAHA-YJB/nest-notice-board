@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Logger } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Ip } from './decorators/ip.decorator';
 
@@ -8,10 +8,13 @@ import { Ip } from './decorators/ip.decorator';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
+  private readonly logger = new Logger();
+
   @Get()
   getHello(@Ip() ip: string): string {
-    console.log(`${ip} 접속`);
+    this.logger.log(`${ip} 접속`);
     return this.appService.getHello();
+    // throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
   }
 
   // Get 데코레이터를 사용하여 라우팅 주소를 설정
