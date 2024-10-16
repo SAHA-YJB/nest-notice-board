@@ -8,7 +8,7 @@ import { Ip } from './decorators/ip.decorator';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  private readonly logger = new Logger();
+  private readonly logger = new Logger('AppController');
 
   @Get()
   getHello(@Ip() ip: string): string {
