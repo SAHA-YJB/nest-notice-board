@@ -1,5 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
+import { Ip } from './decorators/ip.decorator';
 
 // 컨트롤러는 라우팅이다
 // 아무것도 인수로 있지 않다면 기본 주소로 사용한다. http://localhost:4000/
@@ -8,7 +9,8 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
+  getHello(@Ip() ip: string): string {
+    console.log(`${ip} 접속`);
     return this.appService.getHello();
   }
 
