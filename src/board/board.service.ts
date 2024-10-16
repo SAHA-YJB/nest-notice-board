@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateBoardDto } from './dto/create-board.dto';
+import { UpdateBoardDto } from './dto/update-board.dto';
 
 // 서비스는 실제 비즈니스 로직을 만든다
 // 비즈니스 로직은 데이터를 crud 처리하거나 저장하는 로직을 말한다
@@ -59,7 +60,7 @@ export class BoardService {
     return newBoard;
   }
 
-  update(id: number, data) {
+  update(id: number, data: UpdateBoardDto) {
     const index = this.getBoardIndex(id);
 
     if (index > -1) {

@@ -22,12 +22,12 @@ Content-Type: application/json
 ###
 
 # 게시글 수정
-PUT http://localhost:4000/board/7
+PUT http://localhost:4000/board/1
 Content-Type: application/json
 
 {
-  "title": "as",
-  "content": "넥qwe스트"
+  "title": "asdasd",
+  "content": "넥qwasdasd"
 }
 
 ###
