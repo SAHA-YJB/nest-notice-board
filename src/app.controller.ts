@@ -1,17 +1,22 @@
 import { Controller, Get, Logger } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Ip } from './decorators/ip.decorator';
+import { ConfigService } from '@nestjs/config';
 
 // 컨트롤러는 라우팅이다
 // 아무것도 인수로 있지 않다면 기본 주소로 사용한다. http://localhost:4000/
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private readonly configService: ConfigService,
+  ) {}
 
   private readonly logger = new Logger('AppController');
 
   @Get()
   getHello(@Ip() ip: string): string {
+    this.logger.log(this.configService.get('ENVIRONMENT'));
     this.logger.log(`${ip} 접속`);
     return this.appService.getHello();
     // throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
