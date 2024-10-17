@@ -14,8 +14,10 @@ import { ApiTags } from '@nestjs/swagger';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { UpdateBoardDto } from './dto/update-board.dto';
 
-// 컨트롤러는 라우팅 주소를 만든다 API 엔드포인트
+// 컨트롤러는 라우팅 주소를 설정하고 API 엔드포인트를 정의
+// 'board' 경로로 들어오는 요청을 처리
 @Controller('board')
+// Swagger 문서에서 'Board' 태그로 그룹화
 @ApiTags('Board')
 export class BoardController {
   // 서비스 연결
@@ -25,6 +27,7 @@ export class BoardController {
   // http://localhost:4000/board
   // 전체 게시글 조회
   @Get()
+  // 서비스의 findAll 메서드를 호출
   findAll() {
     return this.boardService.findAll();
   }
