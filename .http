@@ -19,7 +19,7 @@ POST http://localhost:4000/board
 Content-Type: application/json
 
 {
-  "title": "안뇽",
+  "userId": 1,
   "content": "잘가요 안녕"
 }
 

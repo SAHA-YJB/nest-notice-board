@@ -20,6 +20,7 @@ dotenv.config({ path: '.env.local' });
       database: 'postgres',
       entities: [__dirname + '/**/*.entity.{js,ts}'],
       synchronize: false,
+      logging: true,
     }),
     BoardModule,
   ],

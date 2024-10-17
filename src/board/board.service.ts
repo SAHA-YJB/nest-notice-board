@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Board } from 'src/entity/board.entity';
+import { User } from 'src/entity/user.entity';
+import { Repository } from 'typeorm';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { UpdateBoardDto } from './dto/update-board.dto';
 
@@ -7,6 +11,12 @@ import { UpdateBoardDto } from './dto/update-board.dto';
 // 저장하는 로직
 @Injectable()
 export class BoardService {
+  constructor(
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
+    @InjectRepository(Board)
+    private readonly boardRepository: Repository<Board>,
+  ) {}
   // 더미 게시글 목록을 정의
   // 실제 애플리케이션에서는 데이터베이스를 사용하지만,
   // 여기서는 예시로 메모리 내 배열을 사용
@@ -51,25 +61,26 @@ export class BoardService {
   }
 
   // 모든 게시글을 반환하는 메서드
-  findAll() {
-    return this.boards;
+  async findAll() {
+    return this.boardRepository.find();
   }
 
   // 특정 ID를 가진 게시글을 반환하는 메서드
   // 게시글이 존재하지 않으면 undefined를 반환
-  findOne(id: number) {
-    const index = this.getBoardIndex(id);
-    return this.boards[index];
+  async findOne(id: number) {
+    const board = await this.boardRepository.findOneBy({ id });
+    if (!board) {
+      throw new HttpException(
+        '게시글을 찾을 수 없습니다.',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    return board;
   }
   // 새로운 게시글을 생성하는 메서드
   // CreateBoardDto를 사용하여 새로운 게시글의 데이터를 받아온다
-  create(data: CreateBoardDto) {
-    const newBoard = {
-      id: this.getNextId(),
-      ...data,
-    };
-    this.boards.push(newBoard);
-    return newBoard;
+  async create(data: CreateBoardDto) {
+    return await this.boardRepository.save(data);
   }
 
   // 특정 ID를 가진 게시글을 업데이트하는 메서드

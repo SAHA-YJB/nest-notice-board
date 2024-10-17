@@ -17,7 +17,7 @@ export class Board {
 
   @ApiProperty({ description: 'user_id' })
   @Column()
-  userId: string;
+  userId: number;
 
   @ApiProperty({ description: '내용' })
   @Column()
