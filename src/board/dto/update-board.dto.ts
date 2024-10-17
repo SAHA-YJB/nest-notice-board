@@ -1,13 +1,14 @@
-import { IsOptional, MaxLength, MinLength } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty } from 'class-validator';
 
 export class UpdateBoardDto {
-  @IsOptional()
-  @MinLength(2)
-  @MaxLength(20)
-  title?: string;
-
-  @IsOptional()
-  content?: string;
+  @IsNotEmpty()
+  @ApiProperty({
+    description: '게시글 내용',
+    required: true,
+    example: '안녕하세요.',
+  })
+  content: string;
 }
 
 // PartialType타입으로 확장을 위해서는 IsNotEmpty를 사용할 수 없다

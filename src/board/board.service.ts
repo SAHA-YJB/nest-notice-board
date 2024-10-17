@@ -85,25 +85,29 @@ export class BoardService {
 
   // 특정 ID를 가진 게시글을 업데이트하는 메서드
   // UpdateBoardDto를 사용하여 업데이트할 데이터를 받아온다
-  update(id: number, data: UpdateBoardDto) {
-    const index = this.getBoardIndex(id);
+  async update(id: number, data: UpdateBoardDto) {
+    const board = await this.boardRepository.findOneBy({ id });
 
-    if (index > -1) {
-      this.boards[index] = { ...this.boards[index], ...data };
-      return this.boards[index];
+    if (!board) {
+      throw new HttpException(
+        '게시글을 찾을 수 없습니다.',
+        HttpStatus.NOT_FOUND,
+      );
     }
-    return null;
+    return await this.boardRepository.update(id, { ...data });
   }
 
   // 특정 ID를 가진 게시글을 삭제하는 메서드
   // 삭제된 게시글을 반환하며, 게시글이 존재하지 않으면 null을 반환
-  remove(id: number) {
-    const index = this.getBoardIndex(id);
-    if (index > -1) {
-      const deletedBoard = this.boards[index];
-      this.boards.splice(index, 1);
-      return deletedBoard;
+  async remove(id: number) {
+    const board = await this.boardRepository.findOneBy({ id });
+
+    if (!board) {
+      throw new HttpException(
+        '게시글을 찾을 수 없습니다.',
+        HttpStatus.NOT_FOUND,
+      );
     }
-    return null;
+    return await this.boardRepository.delete(id);
   }
 }
