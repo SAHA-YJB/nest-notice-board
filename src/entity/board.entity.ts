@@ -3,9 +3,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { User } from './user.entity';
 
 @Entity()
 export class Board {
@@ -27,4 +30,9 @@ export class Board {
   @ApiProperty({ description: '수정일' })
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @ApiProperty({ description: '유저정보' })
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'userId' })
+  user: User;
 }

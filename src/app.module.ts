@@ -3,6 +3,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { BoardModule } from './board/board.module';
 import ConfigModule from './config/index';
 import { LoggingMiddleware } from './middleware/logging.middleware';
+import * as dotenv from 'dotenv';
+
+dotenv.config({ path: '.env.local' });
 
 @Module({
   // imports 배열은 이 모듈에서 사용할 다른 모듈을 지정
@@ -13,7 +16,7 @@ import { LoggingMiddleware } from './middleware/logging.middleware';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: process.env.DB_PASSWORD,
+      password: process.env.DB_PASSWORD as string,
       database: 'postgres',
       entities: [__dirname + '/**/*.entity.{js,ts}'],
       synchronize: false,
